@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+    <title>Image To Text</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            height: 100vh;
+        }
+
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #1e3a8a;
+            color: white;
+            padding: 30px 50px;
+            border-radius: 10px;
+        }
+
+        button{
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            background-color: #ffffff;
+            color: blue;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .child{
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        input{
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            background-color: white;
+            color: rgb(113, 113, 113);
+            margin-top: 10px;
+        }
+
+        .hidden{
+            display: none;
+        }
+
+        .text{
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            background-color: red;
+            color: white;
+        }
+
+        textarea{
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            background-color: white;
+            color: black;
+            margin-top: 10px;
+            height: 200px;
+        }
+
+        h1{
+            font-size: 2rem;
+        }
+
+        footer{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 10px 0;
+            background-color: #e8e8e8;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Image To Text</h1>
+    </div>
+    <div class="main">
+        <p id="text"></p>
+        <div class="child">
+            <label>
+                <input type="file" id="image" accept="image/*">
+            </label>
+        </div>
+        <div class="child">
+            <button id="btn">Convert</button>
+        </div>
+        <div class="child">
+            <textarea id="textarea" class="hidden" cols="35"></textarea>
+        </div>
+      <footer id="checkAuthor">
+        <p>
+          Made with ❤️ by
+          <a href="https://github.com/sauravhathi"
+            >@sauravhathi</a
+          >
+        </p>
+      </footer>
+    </div>
+</body>
+<script>
+    const image = document.getElementById('image');
+    const btn = document.getElementById('btn');
+    function loading() {
+        const text = document.getElementById('text');
+        text.classList.add('text');
+        text.innerHTML = 'Loading...';
+    }
+
+    btn.addEventListener('click', () => {
+        if (image.files.length === 0) {
+            alert('Please select an image');
+        } else {
+            const textArea = document.getElementById('textarea');
+            textArea.classList.add('hidden');
+            const file = image.files[0];
+        loading();
+        Tesseract.recognize(file)
+            .then(({ data: { text } }) => {
+                const a = document.createElement('a');
+                textArea.classList.remove('hidden');
+                textArea.value = text;
+                a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
+                a.setAttribute('download', image.files[0].name.split('.')[0] + '.txt');
+                document.body.appendChild(a);
+                a.click();
+                const loadingText = document.getElementById('text');
+                loadingText.classList.remove('text');
+                loadingText.innerHTML = '';
+            })
+        }
+    })
+
+    const checkAuthor = document.getElementById("checkAuthor");
+    if (checkAuthor.children[0].children[0].textContent === "@sauravhathi") {
+    } else {
+      window.location.href = "https://github.com/sauravhathi";
+    }
+</script>
+</html>
