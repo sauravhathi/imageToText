@@ -4,7 +4,13 @@ This is a simple project that converts an image to text. It uses the tesseract.j
 
 ## Demo
 
-### https://sauravhathi.github.io/image-to-text/
+### https://sauravhathi.github.io/imageToText/
+
+![image](https://user-images.githubusercontent.com/61316762/203771705-998822b9-9689-45ba-8518-6cfbec9e7f78.png)
+
+![image](https://user-images.githubusercontent.com/61316762/203771710-b0478a06-d20f-43c9-9a51-e70093ffcc07.png)
+
+![image](https://user-images.githubusercontent.com/61316762/203771726-39894358-f44e-4b33-b7c1-778d66f3f787.png)
 
 ## How to use
 
@@ -26,4 +32,4 @@ This is a simple project that converts an image to text. It uses the tesseract.j
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details .
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sauravhathi/imageToText/blob/master/LICENSE) file for details .
